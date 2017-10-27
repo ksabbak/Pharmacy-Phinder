@@ -1,11 +1,18 @@
-import React from 'react';
-import { compose, withProps } from 'recompose';
+import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, InfoWindow, withScriptjs, Marker } from 'react-google-maps';
 
-const Map = compose(withScriptjs, withGoogleMap)(props => (
-	<GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-		<Marker position={{ lat: -34.397, lng: 150.644 }} />
-	</GoogleMap>
-));
+// var geocoder = new googleMaps.Geocoder();
+
+const Map = withScriptjs(
+	withGoogleMap(props => (
+		<GoogleMap defaultZoom={15} center={{ lat: props.lat, lng: props.lng }}>
+			<Marker position={{ lat: props.lat, lng: props.lng }} />
+		</GoogleMap>
+	))
+);
+
+// {console.log(geocoder.geocode({ address: '1426 W. Balmoral Ave.' }))}
+// const Map = compose(withScriptjs, withGoogleMap)(props => (
+// ));
 
 export default Map;
