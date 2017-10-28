@@ -11,17 +11,11 @@ class App extends Component {
     };
 
     this.updateMap = this.updateMap.bind(this);
-    // this.geocodeAddress = this.geocodeAddress.bind(this);
   }
 
   updateMap(location) {
-    // console.log(location);
     this.setState({ geocodeThis: location });
   }
-
-  // componentDidUpdate() {
-  //  this.geocodeAddress();
-  // }
 
   render() {
     return (

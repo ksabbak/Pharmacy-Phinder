@@ -85,9 +85,6 @@ class Form extends Component {
 	render() {
 		return (
 			<div className="Form">
-				<p>
-					Okay, ladies, now let's get in FORMation {this.state.firstName} {this.state.lastName}
-				</p>
 				<form>
 					<FormTextInput name="firstName" humanReadable="First Name" inputHandler={this.handleInput} />
 					<FormTextInput name="lastName" humanReadable="Last Name" inputHandler={this.handleInput} />

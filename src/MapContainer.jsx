@@ -25,8 +25,6 @@ class MapContainer extends Component {
 		this.geocodeAddress = this.geocodeAddress.bind(this);
 	}
 
-	// shouldComponentUpdate() {} ??
-
 	geocodeAddress() {
 		var googleMaps = this.props.googleMaps || (window.google && window.google.maps) || this.googleMaps;
 
@@ -49,20 +47,11 @@ class MapContainer extends Component {
 				lng: location.lng()
 			};
 
-			// TODO: Not this
 			if (!(this.state.home.lat === newHome.lat && this.state.home.lng === newHome.lng)) {
 				this.setState({ home: newHome });
 			}
 		});
 	}
-
-	// // componentDidUpdate() {
-	// // 	this.geocodeAddress();
-	// // }
-
-	// componentWillMount() {
-	// 	this.geocodeAddress();
-	// }
 
 	render() {
 		const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places,geocoding`;
