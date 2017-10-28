@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import { withGoogleMap, GoogleMap, InfoWindow, withScriptjs, Marker } from 'react-google-maps';
 
-class Map extends Component {
-	render() {
-		return (
-			<div className="App">
-				<p>This is the Map. It's the map, it's the map, it's the map, it's the map it's the map, it's the map!</p>
-			</div>
-		);
-	}
-}
+const Map = withScriptjs(
+	withGoogleMap(props => (
+		<GoogleMap defaultZoom={15} center={{ lat: props.lat, lng: props.lng }}>
+			{props.geocoder()}
+			<Marker position={{ lat: props.lat, lng: props.lng }} />
+		</GoogleMap>
+	))
+);
 
 export default Map;

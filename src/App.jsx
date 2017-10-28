@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import MapContainer from './MapContainer';
+import Form from './Form';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      geocodeThis: ''
+    };
+
+    this.updateMap = this.updateMap.bind(this);
+  }
+
+  updateMap(location) {
+    this.setState({ geocodeThis: location });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <MapContainer geocodeable={this.state.geocodeThis} />
+        <Form updateMap={this.updateMap} />
       </div>
     );
   }
