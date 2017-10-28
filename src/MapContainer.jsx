@@ -21,11 +21,13 @@ class MapContainer extends Component {
 				lng: -90.5542141
 			}
 		};
+
+		this.geocodeAddress = this.geocodeAddress.bind(this);
 	}
 
 	// shouldComponentUpdate() {} ??
 
-	componentDidUpdate() {
+	geocodeAddress() {
 		var googleMaps = this.props.googleMaps || (window.google && window.google.maps) || this.googleMaps;
 
 		// error handling
@@ -34,32 +36,33 @@ class MapContainer extends Component {
 			return;
 		}
 
-		this.googleMaps = googleMaps;
-		this.geocoder = new googleMaps.Geocoder();
-		// console.log('ADDRESS');
-		// console.log(this.props);
-		this.geocoder.geocode({ address: this.props.geocodeable }, (results, status) => {
-			if (status !== this.googleMaps.GeocoderStatus.OK) {
-				// console.log('STATUS');
-				// console.log(status);
-				// console.log(results);
+		const geocoder = new googleMaps.Geocoder();
+		geocoder.geocode({ address: this.props.geocodeable }, (results, status) => {
+			if (status !== googleMaps.GeocoderStatus.OK) {
+				console.error('Geocoder Status is not okay');
 				return;
 			}
 
-			// console.log(results);
-			// console.log(status);
 			const location = results[0].geometry.location;
-
 			const newHome = {
 				lat: location.lat(),
 				lng: location.lng()
 			};
 
+			// TODO: Not this
 			if (!(this.state.home.lat === newHome.lat && this.state.home.lng === newHome.lng)) {
 				this.setState({ home: newHome });
 			}
 		});
 	}
+
+	// // componentDidUpdate() {
+	// // 	this.geocodeAddress();
+	// // }
+
+	// componentWillMount() {
+	// 	this.geocodeAddress();
+	// }
 
 	render() {
 		const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places,geocoding`;
@@ -76,6 +79,7 @@ class MapContainer extends Component {
 					loadingElement={loadingElement}
 					containerElement={containerElement}
 					mapElement={mapElement}
+					geocoder={this.geocodeAddress}
 				/>
 			</div>
 		);
